@@ -1,0 +1,15 @@
+gcc -fPIC -c lib1.c -o d1.o
+gcc -fPIC -c lib2.c -o d2.o
+gcc -shared d1.o -lm -o libd1.so
+gcc -shared d2.o -lm -o libd2.so
+gcc prog1.c -L. -Wl,-rpath=. -ld1 -o prog1
+gcc prog2.c -L. -Wl,-rpath=. -ldl -o prog2
+echo "1 10 0.2  2 10" | ./prog1
+Derivative(10.000000, 0.200000) = 0.624029
+E(10) = 2.593742
+echo "1  1 10 0.2  2 10  0  1 10 0.2  2 10" | ./prog2
+Library (1/2):
+Derivative(10.000000, 0.200000) = 0.624029
+E(10) = 2.593742
+Derivative(10.000000, 0.200000) = 0.540401
+E(10) = 2.718282
